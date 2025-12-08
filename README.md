@@ -179,8 +179,7 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 # ## **References**
 
 * R503 Fingerprint Sensor Library: [https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library](https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library)
-* ATmega328PB Datasheet
-* ESP32 Technical Reference
+  * Used on ESP32
 
 ---
 
