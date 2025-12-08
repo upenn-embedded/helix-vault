@@ -52,9 +52,7 @@ Helix Vault uses a three stage unlock sequence:
 
 Only when all three layers succeed, in order, does the servo release the final latch.
 
-A DC motor opens the internal sliding door immediately after the fingerprint stage.
-
-Two MCUs communicate using a  **3-bit parallel GPIO bus** , and the LCD MCU controls system sequencing, actuator commands, and on-screen guidance.
+A DC motor opens the internal sliding door immediately after the fingerprint stage, revealing the analog combination panel and the keypad.
 
 ---
 
@@ -69,7 +67,7 @@ Two MCUs communicate using a  **3-bit parallel GPIO bus** , and the LCD MCU cont
 
 *(Written according to requirement guidelines: explicit, complete, testable, consistent.)*
 
-### **3.1 Definitions**
+### **Definitions**
 
 * **MCU** : Microcontroller Unit
 * **LCD** : Liquid Crystal Display
@@ -80,31 +78,25 @@ Two MCUs communicate using a  **3-bit parallel GPIO bus** , and the LCD MCU cont
 
 ---
 
-### **3.2 Functional Requirements**
+#### **SRS-01 - Low Power Management - when the system is not being used, it should be in low power mode. If the battery dies, it can be recharged without unlocking or compromising the safe.**
 
-#### **SRS-01 — Fingerprint Authentication Timing**
+Result: We did not incorporate a low power feature when the system is not being used. However, we did make sure that powering up the system does not compromise any of the safety features of the box. When the box is powered up it makes sure all the locks or closed. However, it is important that if the user is going to power it off (disconnect it from the wall), they make sure the latch is engaged and the box is closed. The box doesn't lock itself when disconnected, but it does have an easy lock feature - when the box is open and the user presses "*" on the keypad, the box locks and goes back to fingerprint sensing (first security layer). Additionally, if the box is powered off at any point during the unlocking process, it will reset and go back to the first security layer.
 
-The system shall verify a fingerprint within **2 seconds** of receiving a capture request and shall output a binary authentication signal to the main MCU.
+#### **SRS-02 - Correct Password Recognition - the safe only opens when the correct password is typed into the system.**
 
-#### **SRS-02 — Sequential Input Enforcement**
+Result: Requirement fully met. The first security layer can only be bypassed by the fingerprint reading one of the saved fingerprints (we tested with different people and fingers and the fingerprint sensor + software never failed). Each saved fingerprint is linked to its own combination + PIN, which is all handled and successfully tested by our software. The system will not read anything inputed into the keypad if the second layer of security (analog combination) hasn't been bypassed. Only the PIN that corresponds to the user's fingerprint will open the box. Any PINS longer than 4 digits are ignored and shorter/incorrect PINS do not open the box under any circumstance.
 
-The system shall not allow combination or PIN input to be registered unless a valid fingerprint match has occurred.
+#### **SRS-03 - Servo Control - the 1st servo only opens the door when both the facial recognition and fingerprint scans have been successful and closes it when the user closes the box and presses the close button.**
 
-#### **SRS-03 — Combination Decode Accuracy**
+Result: We changed this requirement to servo + motor control, since the first door is opened using a DC motor and the latch is opened using a servo. The first door only opens when one of the saved fingerprints is read, any other fingerprint does not open the door - this was thoroughly tested with 10+ incorrect fingers and a 100% success rate (success = door did not open). The analog combination + PIN panel cannot be accessed if the first door doesn't open, so there is no way to actuate the servo without getting a successful fingerprint reading first. The servo only actuates when the correct PIN is typed in (10+ incorrect PINs tested with 100% success rate). The security levels have to be bypassed sequentially (software architecture), so there is no way to actuate the servo with the correct PIN without the correct fingerprint and combination (correct PIN also depends on the fingerprint reading).
 
-The system shall sample all analog inputs at **12-bit resolution** and shall determine combination correctness within **100 milliseconds** after stabilization.
+#### **SRS-04 - System Lockdown - the system locks down for 5 minutes if the user types in the incorrect password 3 times in a row.**
 
-#### **SRS-04 — PIN Verification Integrity**
+Result: The system does not lock down after 3 incorrect tries, but does lock down if the user "tells" it to lock down.
 
-The system shall accept exactly **four numeric digits** and shall unlock only if all digits match the stored PIN associated with the authenticated fingerprint.
+#### **SRS-05 - Storage Management - there is an interface for creating new passwords and deleting old ones. The system will reject an attempt to add a new password when storage is full.**
 
-#### **SRS-05 — Power-Cycle Safety**
-
-The system shall return to the fingerprint authentication stage after any power interruption and shall not unlock automatically following reboot.
-
-#### **SRS-06 — Manual Lockdown**
-
-The system shall enter lockdown mode when the user presses the “*” key while the box is open, during which no combination or PIN input shall be accepted until reset.
+Result: We modified this requirement, instead of having a built in interface that allows the user to change passwords and add fingerprints, this can be done using a computer and connecting to the ATMega's when the box is open and the lid protecting the electronics is taken off.
 
 ---
 
@@ -115,86 +107,35 @@ The system shall enter lockdown mode when the user presses the “*” key while
 * **DC Motor** : Linear actuator for sliding door
 * **Servo** : Rotary actuator for latch
 * **H-Bridge** : Motor driver IC
-* **Backplate Door** : Inner door covering combination + keypad
+* **Sliding Door** : Inner door covering combination + keypad
 
 ---
 
 ### **4.2 Functional Requirements**
 
-#### **HRS-01 — Biometric Sensor Interface**
+#### **HRS-01 — HRS-01 - Microcontroller - the overall system control will be provided by the ATmega328PB.**
 
-The R503 fingerprint sensor shall communicate using UART at **57600 baud ±2 percent** and shall output valid acknowledgment packets detectable via logic analyzer.
+Result: No changes
 
-#### **HRS-02 — Sliding Door Motor Performance**
+#### **HRS-02 - Biometric Lock 1 - our first biometric lock will be a fingerprint scanner. The fingerprint scanner should be able to scan and recognize our (Yongwoo, Jeevan, and Tomas) fingerprints, and differentiate between them.**
 
-The DC motor shall fully open the backplate sliding door within **1.5 seconds** when powered at **6 volts** through the H-bridge.
+Result: success
 
-#### **HRS-03 — Latch Servo Torque Requirement**
+#### **HRS-03 - Biometric Lock 2 - our second biometric scanner will be a facial recognition camera. This camera should be able to scan and recognize our faces, and differentiate between them.** 
 
-The servo shall unlock the latch within **0.5 seconds** and shall resist a back pressure of at least **1 newton** without slipping.
+Result: Unfortunately due to shipping issues we never received the facial recognition module.
 
-#### **HRS-04 — LCD SPI Interface**
+#### **HRS-04 - Keypad - our last lock will be a keypad, where the user has to type an X-digit password to open the box. It will have two LEDs: a red LED that turns on when the keypad is on but the box is closed, a green LED that turns on when the correct password is typed in.**
 
-The LCD module shall operate via SPI at a clock rate of  **1 MHz or higher** , enabling a full line redraw within  **20 milliseconds** .
+Results: 4 digit keypad works. did away with the LEDs, use LCD instead for progress
 
-#### **HRS-05 — Inter-MCU GPIO Communication Reliability**
+#### **HRS-05 - Servo - we will use a servo to open the door that allows the user to use the knobs and keypad. This door will only open if the facial recognition and fingerprint recognize the user.**
 
-The 3 GPIO state lines between ATmega units shall be decoded within **20 milliseconds** with no metastable transitions during 100 state changes.
+Result: changed this to a DC motor driving a belt for linear actuation
 
-#### **HRS-06 — Power Regulation Stability**
+#### **HRS-06 - Relay - if we decide to use a relay to turn on the keypad only when the correct combination of switches and knobs is inputted.**
 
-The buck converters shall supply **6V ±5 percent** for actuators and **5V ±5 percent** for logic, with output ripple not exceeding  **100 mV peak-to-peak** .
-
----
-
-# # **SRS Validation**
-
-### **Validated Requirement: SRS-02 (Sequential Enforcement)**
-
-* Verified by attempting keypad input before fingerprint match
-* LCD UI remained locked at fingerprint stage
-* Main MCU received no state change
-
-  **Outcome:** Requirement satisfied
-
----
-
-### **Validated Requirement: SRS-04 (PIN Verification)**
-
-* Tested 15+ incorrect PIN attempts
-* Tested all correct PIN attempts
-* Only correct PIN triggered servo PWM activation
-
-  **Outcome:** Requirement satisfied
-
-Screenshots, oscilloscope captures, or videos may be included:
-
-<pre class="overflow-visible!" data-start="6193" data-end="6256"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>PWM Capture</span><span>](</span><span>images/pwm_servo_validation.png</span><span>)
-</span></span></code></div></div></pre>
-
----
-
-# # **HRS Validation**
-
-### **Validated Requirement: HRS-01 (UART Biometric Interface)**
-
-* UART packets verified at 57600 baud
-* Logic analyzer showed stable header/payload/checksum
-* Eliminated level-shifter noise issues
-
-  **Outcome:** Requirement satisfied
-
----
-
-### **Validated Requirement: HRS-02 (Motor Door Actuation)**
-
-* Sliding door opened in **1.32 seconds** average across 10 trials
-* Full stroke achieved with no stalls
-
-  **Outcome:** Requirement satisfied
-
-<pre class="overflow-visible!" data-start="6742" data-end="6798"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>Door Test</span><span>](</span><span>images/door_validation.png</span><span>)
-</span></span></code></div></div></pre>
+Result: keypad ended up not needing power, just GPIO scanning
 
 ---
 
@@ -255,5 +196,4 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 # ## **Repository Links**
 
-* **GitHub Repo:** [https://github.com/upenn-embedded/final-project-f25-byte-this](https://github.com/upenn-embedded/final-project-f25-byte-this)
-* **Website (this page):** *(your GitHub Pages URL)*
+* **GitHub Repo:**
