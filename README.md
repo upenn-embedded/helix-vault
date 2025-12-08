@@ -20,25 +20,28 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 If the video does not load, click here:
 
-**[https://drive.google.com/file/d/1yrrJclSwQNpPtwRqeH9M1_K7XSpKtqIG/view](https://drive.google.com/file/d/1yrrJclSwQNpPtwRqeH9M1_K7XSpKtqIG/view)**
+**[https://youtu.be/f8Z03Lm1yS4](https://youtu.be/f8Z03Lm1yS4)**
 
 ---
 
 # ## **Final Product Images**
 
-<pre class="overflow-visible!" data-start="1408" data-end="1482"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span><span class="language-xml"><img</span></span><span></span><span>src</span><span>=</span><span>"images/helix_hero.png"</span><span></span><span>width</span><span>=</span><span>"400"</span><span></span><span>height</span><span>=</span><span>"400"</span><span>>
-</span></span></code></div></div></pre>
-
-### **Additional Images**
-
-<pre class="overflow-visible!" data-start="1512" data-end="1768"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>Safe Exterior</span><span>](</span><span>images/safe_exterior.png</span><span>)
-![</span><span>Internal Latch Mechanism</span><span>](</span><span>images/safe_interior_latch.png</span><span>)
-![</span><span>LCD Interface</span><span>](</span><span>images/lcd_ui.png</span><span>)
-![</span><span>Sliding Door Mechanism</span><span>](</span><span>images/sliding_door.png</span><span>)
+<pre class="overflow-visible!" data-start="1512" data-end="1768"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>
+![</span><span>Fingerprint Stage Unlocked</span><span>](</span><span>images/after_fingerprint.jpg</span><span>)
+![</span><span>Fully Unlocked Safe</span><span>](</span><span>images/unlocked.png</span><span>)
+![</span><span>Circuit Diagram</span><span>](</span><span>images/circuit_diagram.png</span><span>)
+![</span><span>Electronics</span><span>](</span><span>images/circuit_wiring.png</span><span>)
 ![</span><span>Electronics Stack</span><span>](</span><span>images/electronics_stack.png</span><span>)
 </span></span></code></div></div></pre>
 
-Replace with your actual filenames.
+### **Prototype Images**
+
+<pre class="overflow-visible!" data-start="1512" data-end="1768"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>
+![</span><span>Breadboarded Electronics</span><span>](</span><span>images/breadboard.png</span><span>)
+![</span><span>LCD</span><span>](</span><span>images/LCD_password.jpg</span><span>)
+![</span><span>Front Panel Sketch</span><span>](</span><span>images/FrontPanelSketch.png</span><span>)
+![</span><span>Top Panel Sketch</span><span>](</span><span>images/TopPanelSketch.png</span><span>)
+</span></span></code></div></div></pre>
 
 ---
 
@@ -58,7 +61,7 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 # # **System Block Diagram**
 
-<pre class="overflow-visible!" data-start="2432" data-end="2494"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>Block Diagram</span><span>](</span><span>images/Block-Diagram-MVP.png</span><span>)
+<pre class="overflow-visible!" data-start="2432" data-end="2494"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>Block Diagram</span><span>](</span><span>images/block_diagram.png</span><span>)
 </span></span></code></div></div></pre>
 
 ---
@@ -121,7 +124,7 @@ Result: No changes
 
 Result: success
 
-#### **HRS-03 - Biometric Lock 2 - our second biometric scanner will be a facial recognition camera. This camera should be able to scan and recognize our faces, and differentiate between them.** 
+#### **HRS-03 - Biometric Lock 2 - our second biometric scanner will be a facial recognition camera. This camera should be able to scan and recognize our faces, and differentiate between them.**
 
 Result: Unfortunately due to shipping issues we never received the facial recognition module.
 
@@ -195,4 +198,4 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 # ## **Repository Links**
 
-* **GitHub Repo:**
+* **GitHub Repo:** [https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this](https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this)
