@@ -14,9 +14,8 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 # ## **Demo Video**
 
-<pre class="overflow-visible!" data-start="1056" data-end="1208"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-html"><span><span><iframe</span><span></span><span>src</span><span>=</span><span>"https://drive.google.com/file/d/1yrrJclSwQNpPtwRqeH9M1_K7XSpKtqIG/preview"</span><span> 
-</span><span>width</span><span>=</span><span>"720"</span><span></span><span>height</span><span>=</span><span>"480"</span><span></span><span>allow</span><span>=</span><span>"autoplay"</span><span>></span><span></iframe</span><span>>
-</span></span></code></div></div></pre>
+<iframe src="https://drive.google.com/file/d/1yrrJclSwQNpPtwRqeH9M1_K7XSpKtqIG/preview"
+width="720" height="480" allow="autoplay"></iframe>
 
 If the video does not load, click here:
 
@@ -26,22 +25,17 @@ If the video does not load, click here:
 
 # ## **Final Product Images**
 
-<pre class="overflow-visible!" data-start="1512" data-end="1768"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>
-![</span><span>Fingerprint Stage Unlocked</span><span>](</span><span>images/after_fingerprint.jpg</span><span>)
-![</span><span>Fully Unlocked Safe</span><span>](</span><span>images/unlocked.png</span><span>)
-![</span><span>Circuit Diagram</span><span>](</span><span>images/circuit_diagram.png</span><span>)
-![</span><span>Electronics</span><span>](</span><span>images/circuit_wiring.png</span><span>)
-![</span><span>Electronics Stack</span><span>](</span><span>images/electronics_stack.png</span><span>)
-</span></span></code></div></div></pre>
+![Fingerprint Stage Unlocked](images/after_fingerprint.jpg)
+![Fully Unlocked Safe](images/unlocked.jpg)
+![Circuit Diagram</span><span></code>](images/circuit_diagram.png)
+![Electronics](images/circuit_wiring.png)
 
 ### **Prototype Images**
 
-<pre class="overflow-visible!" data-start="1512" data-end="1768"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>
-![</span><span>Breadboarded Electronics</span><span>](</span><span>images/breadboard.png</span><span>)
-![</span><span>LCD</span><span>](</span><span>images/LCD_password.jpg</span><span>)
-![</span><span>Front Panel Sketch</span><span>](</span><span>images/FrontPanelSketch.png</span><span>)
-![</span><span>Top Panel Sketch</span><span>](</span><span>images/TopPanelSketch.png</span><span>)
-</span></span></code></div></div></pre>
+![Breadboarded Electronics](images/breadboard.png)
+![LCD Breadboarding](images/LCD_password.jpg)
+![Front Panel Sketch](images/FrontPanelSketch.png)
+![Top Panel Sketch](images/TopPanelSketch.png)
 
 ---
 
@@ -59,16 +53,13 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 ---
 
-# # **System Block Diagram**
+## **System Block Diagram**
 
-<pre class="overflow-visible!" data-start="2432" data-end="2494"><div class="contain-inline-size rounded-2xl corner-superellipse/1.1 relative bg-token-sidebar-surface-primary"><div class="sticky top-9"><div class="absolute end-0 bottom-0 flex h-9 items-center pe-2"><div class="bg-token-bg-elevated-secondary text-token-text-secondary flex items-center gap-4 rounded-sm px-2 font-sans text-xs"></div></div></div><div class="overflow-y-auto p-4" dir="ltr"><code class="whitespace-pre! language-markdown"><span><span>![</span><span>Block Diagram</span><span>](</span><span>images/block_diagram.png</span><span>)
-</span></span></code></div></div></pre>
+![Block Diagram](images/block_diagram.png)
 
 ---
 
-# # **Software Requirements Specification (SRS)**
-
-*(Written according to requirement guidelines: explicit, complete, testable, consistent.)*
+## **Software Requirements Specification (SRS)**
 
 ### **Definitions**
 
@@ -142,7 +133,7 @@ Result: keypad ended up not needing power, just GPIO scanning
 
 ---
 
-# # **Conclusion**
+## **Conclusion**
 
 Helix Vault brought together firmware design, inter-MCU communication, mechanical actuation, and user interface development into a cohesive embedded system. Several key lessons emerged:
 
@@ -179,14 +170,14 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 ---
 
-# ## **References**
+### **References**
 
 * R503 Fingerprint Sensor Library: [https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library](https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library)
   * Used on ESP32
 
 ---
 
-# ## **Team Information**
+### **Team Information**
 
 **Team 16 — Byte This**
 
@@ -196,6 +187,6 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 ---
 
-# ## **Repository Links**
+### **Repository Links**
 
 * **GitHub Repo:** [https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this](https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this)
