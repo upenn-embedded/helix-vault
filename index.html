@@ -30,12 +30,6 @@
                 <p class="subtitle">Embedded Systems Final Project — ESE 5190 (Fall 2025)</p>
                 <p class="team-name">Team Byte This (Team 16)</p>
             </div>
-            <div class="header-center">
-                <a href="https://www.youtube.com/watch?v=f8Z03Lm1yS4" target="_blank" class="video-thumbnail-link">
-                    <img src="https://img.youtube.com/vi/f8Z03Lm1yS4/hqdefault.jpg" alt="Demo Video" class="video-thumbnail">
-                    <div class="play-button">▶</div>
-                </a>
-            </div>
             <div class="header-right">
                 <div class="header-links">
                     <div class="header-link-group">
@@ -65,7 +59,6 @@
 
     <nav class="sticky-nav">
         <div class="nav-container">
-            <a href="https://www.youtube.com/watch?v=f8Z03Lm1yS4" target="_blank" class="nav-link">Demo</a>
             <a href="#overview" class="nav-link">System Overview</a>
             <a href="#images" class="nav-link">Gallery</a>
             <a href="#requirements" class="nav-link">Requirements</a>
@@ -75,28 +68,17 @@
 
     <main>
         <section id="overview" class="hero-section">
-            <div class="container overview-grid">
-                <div class="overview-image">
-                    <img src="images/400x400.jpg" alt="Helix Vault" class="hero-image">
-                </div>
-                <div class="overview-text">
-                    <p class="intro-text">
-                        A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification.
-                        Powered by two ATmega328PB microcontrollers and an ESP32 fingerprint module, Helix Vault blends embedded security logic,
-                        mechanical actuation, and a guided LCD user interface.
-                    </p>
-                    <h3>System Overview</h3>
-                    <p class="system-description">
-                        Helix Vault uses a sequential three layer unlock flow:
-                    </p>
-                    <ol class="system-flow">
-                        <li><strong>Fingerprint verification</strong> (ESP32 + R503 sensor)</li>
-                        <li><strong>Analog combination</strong> using potentiometers + switches</li>
-                        <li><strong>PIN entry</strong> using a matrix keypad</li>
-                    </ol>
-                    <p class="system-description">
-                        A DC motor opens the sliding door after fingerprint recognition, revealing the analog combination and keypad stage.
-                    </p>
+            <div class="container">
+                <p class="overview-description">
+                    <strong>A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification. Powered by two ATmega328PB microcontrollers and an ESP32 fingerprint module, Helix Vault blends embedded security logic, mechanical actuation, and a guided LCD user interface.</strong>
+                </p>
+                <div class="overview-media-grid">
+                    <div class="overview-image">
+                        <img src="images/400x400.jpg" alt="Helix Vault" class="hero-image">
+                    </div>
+                    <div class="overview-video">
+                        <iframe src="https://www.youtube.com/embed/f8Z03Lm1yS4" title="Helix Vault Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
         </section>
@@ -149,29 +131,6 @@
 
         <section id="requirements" class="requirements-section">
             <div class="container">
-                <div class="definitions-grid">
-                    <div class="def-card">
-                        <h3>Software Definitions</h3>
-                        <div class="def-list">
-                            <div class="def-item"><span class="def-term">MCU</span><span class="def-desc">Microcontroller Unit</span></div>
-                            <div class="def-item"><span class="def-term">LCD</span><span class="def-desc">Liquid Crystal Display</span></div>
-                            <div class="def-item"><span class="def-term">ADC</span><span class="def-desc">Analog-to-digital converter</span></div>
-                            <div class="def-item"><span class="def-term">PIN</span><span class="def-desc">Personal Identification Number</span></div>
-                            <div class="def-item"><span class="def-term">Unlock Sequence</span><span class="def-desc">Fingerprint → Combination → PIN</span></div>
-                            <div class="def-item"><span class="def-term">R503</span><span class="def-desc">Fingerprint sensor module</span></div>
-                        </div>
-                    </div>
-                    <div class="def-card">
-                        <h3>Hardware Definitions</h3>
-                        <div class="def-list">
-                            <div class="def-item"><span class="def-term">DC Motor</span><span class="def-desc">Linear actuator for sliding door</span></div>
-                            <div class="def-item"><span class="def-term">Servo</span><span class="def-desc">Rotary actuator for latch</span></div>
-                            <div class="def-item"><span class="def-term">H-Bridge</span><span class="def-desc">Motor driver IC</span></div>
-                            <div class="def-item"><span class="def-term">Sliding Door</span><span class="def-desc">Inner door covering combination + keypad</span></div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="requirements-columns">
                     <div class="requirements-column">
                         <h3 class="column-header">Software Requirements Specification (SRS)</h3>
