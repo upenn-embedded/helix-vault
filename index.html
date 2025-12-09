@@ -19,8 +19,19 @@
         </div>
     </header>
 
+    <nav class="sticky-nav">
+        <div class="nav-container">
+            <a href="#overview" class="nav-link">Overview</a>
+            <a href="#demo" class="nav-link">Demo</a>
+            <a href="#images" class="nav-link">Images</a>
+            <a href="#system" class="nav-link">System</a>
+            <a href="#requirements" class="nav-link">Requirements</a>
+            <a href="#conclusion" class="nav-link">Conclusion</a>
+        </div>
+    </nav>
+
     <main>
-        <section class="hero-section">
+        <section id="overview" class="hero-section">
             <div class="container">
                 <img src="images/after_fingerprint.jpg" alt="Helix Vault - Fingerprint Stage" class="hero-image">
                 <p class="intro-text">
@@ -31,7 +42,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="demo">
             <div class="container">
                 <h2>Demo Video</h2>
                 <div class="video-container">
@@ -42,7 +53,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="images">
             <div class="container">
                 <h2>Final Product Images</h2>
                 
@@ -80,7 +91,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="system">
             <div class="container">
                 <h2>System Overview</h2>
                 <p style="font-size: 0.95rem; margin-bottom: 16px; color: var(--text-secondary); font-weight: 300; max-width: 700px;">
@@ -105,7 +116,7 @@
             </div>
         </section>
 
-        <section class="requirements-section">
+        <section id="requirements" class="requirements-section">
             <div class="container">
                 <div class="section-header">
                     <h2>Requirements Specification</h2>
@@ -260,7 +271,7 @@
             </div>
         </section>
 
-        <section>
+        <section id="conclusion">
             <div class="container">
                 <h2>Conclusion</h2>
                 <p style="font-size: 0.95rem; margin-bottom: 24px; color: var(--text-secondary); font-weight: 300; max-width: 700px;">
@@ -393,7 +404,7 @@
             const modal = document.getElementById('imageModal');
             const modalImg = document.getElementById('modalImage');
             const modalCaption = document.getElementById('modalCaption');
-            
+
             modal.classList.add('active');
             modalImg.src = imageSrc;
             modalCaption.textContent = caption;
@@ -412,6 +423,36 @@
                 closeModal();
             }
         });
+
+        // Active navigation highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNav() {
+            let currentSection = '';
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Update on scroll
+        window.addEventListener('scroll', updateActiveNav);
+        // Update on page load
+        updateActiveNav();
     </script>
 </body>
 </html>
