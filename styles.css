@@ -23,42 +23,49 @@ body {
     line-height: 1.6;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Header */
 header {
     background: var(--bg-primary);
-    padding: 80px 20px 60px;
-    text-align: center;
+    padding: 50px 20px 40px;
+    text-align: left;
     border-bottom: 1px solid var(--border-color);
 }
 
 header h1 {
     font-size: 3rem;
-    font-weight: 400;
+    font-weight: 500;
     margin-bottom: 10px;
     color: var(--text-primary);
-    letter-spacing: -0.5px;
+    letter-spacing: -0.8px;
+    line-height: 1.1;
 }
 
 header .subtitle {
     font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     font-weight: 300;
 }
 
 header .team-info {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 0.9rem;
     color: var(--text-secondary);
     font-weight: 300;
+    line-height: 1.5;
 }
 
 header .team-info strong {
@@ -69,47 +76,72 @@ header .team-info strong {
 /* Hero Section */
 .hero-section {
     padding: 60px 20px;
-    text-align: center;
+    text-align: left;
 }
 
 .hero-image {
-    max-width: 600px;
+    max-width: 100%;
     width: 100%;
-    margin: 30px auto;
+    margin: 0 0 24px 0;
     display: block;
+    border-radius: 8px;
 }
 
 .intro-text {
     max-width: 700px;
-    margin: 40px auto;
+    margin: 0;
     font-size: 1rem;
-    line-height: 1.8;
+    line-height: 1.7;
     color: var(--text-secondary);
     font-weight: 300;
 }
 
 /* Section Styling */
 section {
-    padding: 60px 20px;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+.requirements-section {
+    padding: 50px 20px;
+}
+
+.section-header {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.section-header h2 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.section-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 300;
     margin: 0;
 }
 
 h2 {
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-    font-weight: 400;
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    font-weight: 500;
     color: var(--text-primary);
-    letter-spacing: -0.3px;
+    letter-spacing: -0.4px;
+    text-align: left;
 }
 
 h3 {
-    font-size: 1rem;
-    margin: 50px 0 30px 0;
-    color: var(--text-secondary);
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
+    margin: 0 0 20px 0;
+    color: var(--text-primary);
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
 }
 
 /* Video Container */
@@ -118,8 +150,10 @@ h3 {
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    max-width: 800px;
-    margin: 30px auto;
+    max-width: 900px;
+    margin: 0;
+    border-radius: 8px;
+    width: 100%;
 }
 
 .video-container iframe {
@@ -136,7 +170,7 @@ h3 {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2px;
-    margin: 40px 0;
+    margin: 20px 0;
     width: 100%;
 }
 
@@ -147,6 +181,8 @@ h3 {
     overflow: hidden;
     cursor: pointer;
     background: var(--bg-secondary);
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .img-grid-item img {
@@ -157,6 +193,7 @@ h3 {
     height: 100%;
     object-fit: cover;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .img-grid-item:hover img {
@@ -234,8 +271,7 @@ h3 {
 
 /* Block Diagram */
 .block-diagram {
-    text-align: center;
-    margin: 40px 0;
+    margin: 0;
 }
 
 .block-diagram img {
@@ -285,36 +321,127 @@ li strong {
     font-weight: 300;
 }
 
+/* Requirements Grid */
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.req-card {
+    background: var(--bg-secondary);
+    padding: 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.req-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent-red);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.req-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(220, 38, 38, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.req-card:hover::before {
+    transform: scaleY(1);
+}
+
+.req-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-red);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.req-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+}
+
+.req-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.req-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.req-content p {
+    color: var(--text-secondary);
+    font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
 /* Conclusion Section */
 .conclusion-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin: 30px 0;
+    gap: 16px;
+    margin: 20px 0;
 }
 
 .conclusion-card {
     background: var(--bg-secondary);
-    padding: 25px;
+    padding: 18px;
     border: 1px solid var(--border-color);
+    border-radius: 4px;
 }
 
 .conclusion-card h4 {
     color: var(--text-primary);
-    margin-bottom: 15px;
-    font-size: 1rem;
-    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
 .conclusion-card ul {
     list-style: none;
     padding-left: 0;
+    margin: 0;
 }
 
 .conclusion-card li {
-    padding-left: 20px;
+    padding-left: 18px;
     position: relative;
     font-weight: 300;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 6px;
+}
+
+.conclusion-card li:last-child {
+    margin-bottom: 0;
 }
 
 .conclusion-card li:before {
@@ -324,12 +451,18 @@ li strong {
     color: var(--accent-red);
 }
 
+.conclusion-card ul ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 /* Links */
 a {
     color: var(--accent-red);
     text-decoration: none;
     transition: color 0.3s ease;
     font-weight: 400;
+    -webkit-tap-highlight-color: rgba(220, 38, 38, 0.2);
 }
 
 a:hover {
@@ -337,13 +470,17 @@ a:hover {
     text-decoration: underline;
 }
 
+a:active {
+    opacity: 0.8;
+}
+
 /* Footer */
 footer {
     background: var(--bg-primary);
-    padding: 60px 20px;
+    padding: 30px 20px;
     text-align: center;
     border-top: 1px solid var(--border-color);
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 footer .team-section {
@@ -371,6 +508,16 @@ footer .team-list li {
     font-weight: 300;
 }
 
+footer .team-list li a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer .team-list li a:hover {
+    color: var(--accent-red);
+}
+
 footer .repo-link {
     margin-top: 30px;
     padding-top: 30px;
@@ -381,74 +528,358 @@ footer .repo-link h2 {
     font-size: 1.2rem;
 }
 
-/* Definition Lists */
-.definitions {
+/* Definitions Grid */
+.definitions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.def-card {
     background: var(--bg-secondary);
-    padding: 25px;
-    margin: 20px 0;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
-.definitions h3 {
-    margin-top: 0;
+.def-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-red);
+}
+
+.def-card h3 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
     margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+}
+
+.def-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.def-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.def-term {
+    font-weight: 500;
     color: var(--text-primary);
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+    flex-shrink: 0;
 }
 
-.definitions dt {
-    font-weight: 400;
-    color: var(--text-primary);
-    margin-top: 15px;
-}
-
-.definitions dt:first-child {
-    margin-top: 0;
-}
-
-.definitions dd {
-    margin-left: 20px;
+.def-desc {
     color: var(--text-secondary);
-    margin-bottom: 10px;
     font-weight: 300;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* Responsive Design */
+@media (max-width: 968px) {
+    .requirements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .definitions-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    header {
+        padding: 30px 16px 24px;
+    }
+
     header h1 {
         font-size: 2rem;
+        margin-bottom: 8px;
     }
 
     header .subtitle {
         font-size: 0.9rem;
+        margin-bottom: 12px;
+    }
+
+    header .team-info {
+        font-size: 0.85rem;
+        margin-top: 12px;
     }
 
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+    }
+    
+    .section-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .section-header {
+        margin-bottom: 24px;
+    }
+
+    .section-subtitle {
+        font-size: 0.85rem;
+    }
+
+    section {
+        padding: 30px 16px;
+    }
+    
+    .requirements-section {
+        padding: 35px 16px;
+    }
+    
+    .hero-section {
+        padding: 30px 16px;
+    }
+
+    .hero-image {
+        margin-bottom: 20px;
+    }
+
+    .intro-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
     }
 
     .img-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: 1px;
+        margin: 16px 0;
     }
 
     .conclusion-grid {
         grid-template-columns: 1fr;
+        gap: 12px;
+        margin: 16px 0;
     }
 
-    section {
-        padding: 40px 15px;
+    .definitions-grid {
+        gap: 16px;
+        margin-bottom: 30px;
+    }
+    
+    .def-card {
+        padding: 16px;
+    }
+
+    .def-card h3 {
+        font-size: 0.7rem;
+        margin-bottom: 12px;
+    }
+
+    .def-list {
+        gap: 12px;
+    }
+
+    .def-term {
+        font-size: 0.85rem;
+        min-width: 100px;
+    }
+
+    .def-desc {
+        font-size: 0.85rem;
+    }
+    
+    .req-card {
+        padding: 18px;
+    }
+
+    .req-number {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+
+    .req-card h3 {
+        font-size: 0.95rem;
+        margin-bottom: 14px;
+    }
+
+    .req-content {
+        gap: 10px;
+    }
+
+    .req-label {
+        font-size: 0.7rem;
+    }
+
+    .req-content p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    .conclusion-card {
+        padding: 16px;
+    }
+
+    .conclusion-card h4 {
+        font-size: 0.85rem;
+        margin-bottom: 8px;
+    }
+
+    .conclusion-card li {
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+
+    .video-container {
+        margin: 16px 0;
+    }
+
+    .block-diagram {
+        gap: 16px;
+    }
+
+    .block-diagram img {
+        border-radius: 6px;
+    }
+
+    footer {
+        padding: 24px 16px;
+        margin-top: 24px;
+    }
+
+    footer .team-section h2,
+    footer .repo-link h2 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+
+    footer .team-list {
+        flex-direction: column;
+        gap: 8px;
+        align-items: center;
+    }
+
+    footer .team-list li {
+        font-size: 0.85rem;
     }
 
     .modal-close {
         top: 10px;
-        right: 20px;
-        font-size: 30px;
+        right: 16px;
+        font-size: 28px;
+    }
+
+    .modal-content {
+        max-width: 95%;
+        max-height: 85%;
+    }
+
+    .modal-caption {
+        font-size: 0.8rem;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .img-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    section {
+        padding: 24px 12px;
+    }
+
+    .requirements-section {
+        padding: 28px 12px;
+    }
+
+    .req-card {
+        padding: 16px;
+    }
+
+    .def-card {
+        padding: 14px;
+    }
+
+    .conclusion-card {
+        padding: 14px;
     }
 }
 
 /* Smooth Scroll */
 html {
     scroll-behavior: smooth;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+    /* Prevent text overflow */
+    p, li, dd, dt {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Improve touch targets */
+    .img-grid-item,
+    .req-card,
+    .def-card,
+    .conclusion-card {
+        min-height: 44px; /* Minimum touch target size */
+    }
+
+    /* Better list spacing on mobile */
+    ol, ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 6px;
+    }
+
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.15rem;
+    }
+
+    .img-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .req-card,
+    .def-card {
+        padding: 12px;
+    }
 }

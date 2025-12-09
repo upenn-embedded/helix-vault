@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Helix Vault - A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification. Embedded Systems Final Project — ESE 5190 (Fall 2025)">
     <title>Helix Vault | Byte This - ESE 5190 Final Project</title>
     <link rel="stylesheet" href="styles.css">
@@ -83,107 +83,179 @@
         <section>
             <div class="container">
                 <h2>System Overview</h2>
-                <p style="font-size: 1rem; margin-bottom: 30px; color: var(--text-secondary); font-weight: 300;">
+                <p style="font-size: 0.95rem; margin-bottom: 16px; color: var(--text-secondary); font-weight: 300; max-width: 700px;">
                     Helix Vault uses a sequential three layer unlock flow:
                 </p>
-                <ol style="font-size: 1rem; max-width: 700px; margin: 20px auto; font-weight: 300;">
-                    <li><strong>Fingerprint verification</strong> (ESP32 + R503 sensor)</li>
-                    <li><strong>Analog combination</strong> using potentiometers + switches (ADC readings)</li>
+                <ol style="font-size: 0.95rem; max-width: 700px; margin: 0 0 20px 0; font-weight: 300; padding-left: 25px;">
+                    <li style="margin-bottom: 8px;"><strong>Fingerprint verification</strong> (ESP32 + R503 sensor)</li>
+                    <li style="margin-bottom: 8px;"><strong>Analog combination</strong> using potentiometers + switches (ADC readings)</li>
                     <li><strong>PIN entry</strong> using a matrix keypad</li>
                 </ol>
-                <p style="margin-top: 30px; color: var(--text-secondary); font-weight: 300;">
+                <p style="margin: 0 0 30px 0; color: var(--text-secondary); font-weight: 300; font-size: 0.95rem; max-width: 700px;">
                     A DC motor opens the sliding door after fingerprint recognition, revealing the analog combination and keypad stage.
                 </p>
-                <div class="block-diagram" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
-                    <div style="text-align: center;">
-                        <img src="images/block_diagram.png" alt="System Block Diagram" onclick="openModal('images/block_diagram.png', 'System Block Diagram')" style="cursor: pointer; max-width: 100%;">
+                <div class="block-diagram" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 0;">
+                    <div>
+                        <img src="images/block_diagram.png" alt="System Block Diagram" onclick="openModal('images/block_diagram.png', 'System Block Diagram')" style="cursor: pointer; max-width: 100%; width: 100%; height: auto; border-radius: 8px; display: block;">
                     </div>
-                    <div style="text-align: center;">
-                        <img src="images/circuit_diagram.png" alt="System Circuit Diagram" onclick="openModal('images/circuit_diagram.png', 'System Circuit Diagram')" style="cursor: pointer; max-width: 100%;">
+                    <div>
+                        <img src="images/circuit_diagram.png" alt="System Circuit Diagram" onclick="openModal('images/circuit_diagram.png', 'System Circuit Diagram')" style="cursor: pointer; max-width: 100%; width: 100%; height: auto; border-radius: 8px; display: block;">
                     </div>
                 </div>
             </div>
         </section>
 
-        <section>
+        <section class="requirements-section">
             <div class="container">
-                <h2>Software Requirements Specification (SRS)</h2>
-                
-                <div class="definitions">
-                    <h3>Definitions</h3>
-                    <dl>
-                        <dt>MCU</dt>
-                        <dd>Microcontroller Unit</dd>
-                        <dt>LCD</dt>
-                        <dd>Liquid Crystal Display</dd>
-                        <dt>ADC</dt>
-                        <dd>Analog-to-digital converter</dd>
-                        <dt>PIN</dt>
-                        <dd>Personal Identification Number</dd>
-                        <dt>Unlock Sequence</dt>
-                        <dd>Fingerprint → Combination → PIN</dd>
-                    </dl>
+                <div class="section-header">
+                    <h2>Requirements Specification</h2>
+                    <p class="section-subtitle">Software and hardware requirements with validation results</p>
                 </div>
 
-                <div class="requirements">
-                    <h3>SRS-01 — Low Power Management</h3>
-                    <p>Not implemented, but system restart never compromises security.</p>
+                <div class="definitions-grid">
+                    <div class="def-card">
+                        <h3>Software Definitions</h3>
+                        <div class="def-list">
+                            <div class="def-item"><span class="def-term">MCU</span><span class="def-desc">Microcontroller Unit</span></div>
+                            <div class="def-item"><span class="def-term">LCD</span><span class="def-desc">Liquid Crystal Display</span></div>
+                            <div class="def-item"><span class="def-term">ADC</span><span class="def-desc">Analog-to-digital converter</span></div>
+                            <div class="def-item"><span class="def-term">PIN</span><span class="def-desc">Personal Identification Number</span></div>
+                            <div class="def-item"><span class="def-term">Unlock Sequence</span><span class="def-desc">Fingerprint → Combination → PIN</span></div>
+                            <div class="def-item"><span class="def-term">R503</span><span class="def-desc">Fingerprint sensor module</span></div>
+                        </div>
+                    </div>
+                    <div class="def-card">
+                        <h3>Hardware Definitions</h3>
+                        <div class="def-list">
+                            <div class="def-item"><span class="def-term">DC Motor</span><span class="def-desc">Linear actuator for sliding door</span></div>
+                            <div class="def-item"><span class="def-term">Servo</span><span class="def-desc">Rotary actuator for latch</span></div>
+                            <div class="def-item"><span class="def-term">H-Bridge</span><span class="def-desc">Motor driver IC</span></div>
+                            <div class="def-item"><span class="def-term">Sliding Door</span><span class="def-desc">Inner door covering combination + keypad</span></div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="requirements">
-                    <h3>SRS-02 — Correct Password Recognition</h3>
-                    <p>100% success across all tests — no incorrect fingerprint, combination, or PIN ever bypassed the system.</p>
-                </div>
+                <div class="requirements-grid">
+                    <div class="req-card">
+                        <div class="req-number">SRS-01</div>
+                        <h3>Low Power Management</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The system shall be in low power mode when not being used. If the battery dies, it shall be rechargeable without unlocking or compromising the safe.</p>
+                            <div class="req-label">Result</div>
+                            <p>We did not add a low-power mode, but powering up the system never compromises safety—on startup, it always verifies that all locks are closed. If the box is powered off, it does not lock itself, so users should ensure it is closed and latched before disconnecting power. The box can also be easily locked by pressing "*", and any power loss during unlocking resets it to the first security layer.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>SRS-03 — Servo + Motor Control</h3>
-                    <p>DC motor opens sliding door only after valid fingerprint. Servo latch opens only after valid PIN. Fully validated.</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">SRS-02</div>
+                        <h3>Correct Password Recognition</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The safe shall only open when the correct password is typed into the system.</p>
+                            <div class="req-label">Result</div>
+                            <p>Requirement fully met. The fingerprint sensor reliably accepts only saved fingerprints, each linked to a unique combination and PIN. The keypad is disabled until the analog combination is correctly entered, and only the exact 4-digit PIN associated with the authenticated fingerprint will open the box.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>SRS-04 — System Lockdown</h3>
-                    <p>Implemented manual lockdown ("*" key).</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">SRS-03</div>
+                        <h3>Servo Control</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The 1st servo shall only open the door when both the facial recognition and fingerprint scans have been successful and shall close it when the user closes the box and presses the close button.</p>
+                            <div class="req-label">Result</div>
+                            <p>We updated this requirement to servo + DC motor control. The DC motor opens the first door only after a valid fingerprint match, and extensive testing with all of our unregistered fingers and other classmates confirmed that incorrect fingerprints never trigger it. The combination and PIN panel is physically inaccessible until this door opens, and the servo latch actuates only after the correct fingerprint, correct combination, and correct PIN are entered in sequence.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>SRS-05 — Storage Management</h3>
-                    <p>Credential modification handled via serial interface.</p>
-                </div>
-            </div>
-        </section>
+                    <div class="req-card">
+                        <div class="req-number">SRS-04</div>
+                        <h3>System Lockdown</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The system shall lock down for 5 minutes if the user types in the incorrect password 3 times in a row.</p>
+                            <div class="req-label">Result</div>
+                            <p>The system does not lock down after 3 incorrect tries, but does lock down if the user "tells" it to lock down.</p>
+                        </div>
+                    </div>
 
-        <section>
-            <div class="container">
-                <h2>Hardware Requirements Specification (HRS)</h2>
-                
-                <div class="requirements">
-                    <h3>HRS-01 — Microcontroller</h3>
-                    <p>Met.</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">SRS-05</div>
+                        <h3>Storage Management</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>There shall be an interface for creating new passwords and deleting old ones. The system shall reject an attempt to add a new password when storage is full.</p>
+                            <div class="req-label">Result</div>
+                            <p>We modified this requirement, instead of having a built in interface that allows the user to change passwords and add fingerprints, this can be done using a computer and connecting to the ATMega's when the box is open and the lid protecting the electronics is taken off.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>HRS-02 — Biometric Lock (Fingerprint)</h3>
-                    <p>Met.</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">HRS-01</div>
+                        <h3>Microcontroller</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The overall system control shall be provided by the ATmega328PB.</p>
+                            <div class="req-label">Result</div>
+                            <p>No changes. Requirement fulfilled.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>HRS-03 — Biometric Lock (Facial Recognition)</h3>
-                    <p>Not met (hardware not delivered).</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">HRS-02</div>
+                        <h3>Biometric Lock 1</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The first biometric lock shall be a fingerprint scanner. The fingerprint scanner shall be able to scan and recognize fingerprints from Yongwoo, Jeevan, and Tomas, and shall differentiate between them.</p>
+                            <div class="req-label">Result</div>
+                            <p>No changes. Requirement fulfilled.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>HRS-04 — Keypad</h3>
-                    <p>4-digit PIN keypad implemented.</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">HRS-03</div>
+                        <h3>Biometric Lock 2</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The second biometric scanner shall be a facial recognition camera. This camera shall be able to scan and recognize faces, and shall differentiate between them.</p>
+                            <div class="req-label">Result</div>
+                            <p>Unfortunately due to shipping issues we never received the facial recognition module.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>HRS-05 — Servo / Motor Control</h3>
-                    <p>Latch = servo. Sliding door = DC motor.</p>
-                </div>
+                    <div class="req-card">
+                        <div class="req-number">HRS-04</div>
+                        <h3>Keypad</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>The last lock shall be a keypad, where the user has to type an X-digit password to open the box. It shall have two LEDs: a red LED that turns on when the keypad is on but the box is closed, and a green LED that turns on when the correct password is typed in.</p>
+                            <div class="req-label">Result</div>
+                            <p>The keypad is used to enter a 4-digit PIN. Instead of LEDs, an LCD screen was used instead for prompting the user and showing progress.</p>
+                        </div>
+                    </div>
 
-                <div class="requirements">
-                    <h3>HRS-06 — Relay</h3>
-                    <p>Removed — not required.</p>
+                    <div class="req-card">
+                        <div class="req-number">HRS-05</div>
+                        <h3>Servo</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>A servo shall be used to open the door that allows the user to use the knobs and keypad. This door shall only open if the facial recognition and fingerprint recognize the user.</p>
+                            <div class="req-label">Result</div>
+                            <p>The door revealing the knobs and keypad is actuated by a DC motor actuating a linear slider instead of a servo. This door only opens once the fingerprint is verified.</p>
+                        </div>
+                    </div>
+
+                    <div class="req-card">
+                        <div class="req-number">HRS-06</div>
+                        <h3>Relay</h3>
+                        <div class="req-content">
+                            <div class="req-label">Requirement</div>
+                            <p>A relay shall turn on the keypad only when the correct combination of switches and knobs is inputted.</p>
+                            <div class="req-label">Result</div>
+                            <p>The keypad does not need a separate power source - instead GPIO pins are used to scan for keypad inputs. They GPIOs do not scan the keypad unless the correct switch and knob combination is detected.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -191,33 +263,80 @@
         <section>
             <div class="container">
                 <h2>Conclusion</h2>
+                <p style="font-size: 0.95rem; margin-bottom: 24px; color: var(--text-secondary); font-weight: 300; max-width: 700px;">
+                    Helix Vault brought together firmware design, inter-MCU communication, mechanical actuation, and user interface development into a cohesive embedded system.
+                </p>
                 
                 <div class="conclusion-grid">
                     <div class="conclusion-card">
                         <h4>What Went Well</h4>
                         <ul>
-                            <li>Multi-MCU GPIO communication</li>
-                            <li>LCD-guided UI</li>
-                            <li>Consistent fingerprint performance</li>
+                            <li>Reliable multi-MCU communication using simple GPIO encoding</li>
+                            <li>Smooth integration of actuators with LCD-guided user experience</li>
+                            <li>Robust fingerprint performance</li>
+                            <li>Effective power management with simple 12V power supply to power all circuitry</li>
+                            <li>Mechanical design and hardware installation was seamless</li>
+                            <li>Efficiently split up tasks to create hardware and software parts that could come together for the final product</li>
                         </ul>
                     </div>
 
                     <div class="conclusion-card">
                         <h4>Lessons Learned</h4>
                         <ul>
-                            <li>UART debugging requires careful electrical design</li>
-                            <li>Mechanical torque can bottleneck software progress</li>
-                            <li>Modular firmware architecture accelerates integration</li>
+                            <li>Designing modular firmware significantly simplifies integration</li>
+                            <li>UART debugging with mis-matched voltage domains requires careful inspection</li>
+                            <li>Mechanical choices (servo torque, motor force) matter as much as code</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <h4>Proudest Accomplishments</h4>
+                        <ul>
+                            <li>Homemade Multi MCU communication was seamless and effective</li>
+                            <li>No broken/fried electronic components</li>
+                            <li>Extremely smooth operation and unlock process</li>
+                            <li>Final result looks very close to a final prototype</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <h4>Approach Changes</h4>
+                        <ul>
+                            <li>Original facial recognition stage was removed because the module never arrived</li>
+                            <li>Two servos were replaced with a DC motor + servo approach for reliability</li>
+                            <li>LEDs were replaced with a full LCD UI to satisfy SPI and improve UX</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <h4>Obstacles</h4>
+                        <ul>
+                            <li>Laser cutter downtime</li>
+                            <li>Hardware shipping delays</li>
+                            <li>Limited budget ($150 total)</li>
+                            <li>Low torque DC motor actuating sliding door</li>
+                            <li>Couldn't get a bare-metal C UART driver working with the fingerprint sensor</li>
                         </ul>
                     </div>
 
                     <div class="conclusion-card">
                         <h4>Next Steps</h4>
                         <ul>
-                            <li>Add facial or iris recognition</li>
-                            <li>Custom PCB for compact assembly</li>
-                            <li>Add override key</li>
-                            <li>Logging + timestamped unlock events</li>
+                            <li>Add facial recognition</li>
+                            <li>Add increased security layers
+                                <ul style="margin-top: 6px; padding-left: 18px;">
+                                    <li>Biometric, for example iris scanner</li>
+                                    <li>More unique combination lock inputs</li>
+                                </ul>
+                            </li>
+                            <li>Create a custom PCB to shrink the electronics footprint</li>
+                            <li>Secure override key for power failures</li>
+                            <li>Implement onboard user management</li>
+                            <li>Unlock attempt history
+                                <ul style="margin-top: 6px; padding-left: 18px;">
+                                    <li>With facial recognition camera pictures can be taken of the user/intruder</li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -227,7 +346,7 @@
         <section>
             <div class="container">
                 <h2>References</h2>
-                <ul style="font-size: 1rem; font-weight: 300;">
+                <ul style="font-size: 1rem; font-weight: 300; padding-left: 25px; max-width: 700px;">
                     <li>
                         <a href="https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library" target="_blank">
                             R503 Fingerprint Library
@@ -253,9 +372,9 @@
                 <h2>Team Information</h2>
                 <ul class="team-list">
                     <li><strong>Team 16 — Byte This</strong></li>
-                    <li>Jeevan Karandikar</li>
-                    <li>Yongwoo Park</li>
-                    <li>Tomas Ascoli</li>
+                    <li><a href="mailto:jeev@seas.upenn.edu">Jeevan Karandikar</a></li>
+                    <li><a href="mailto:yongwoo@seas.upenn.edu">Yongwoo Park</a></li>
+                    <li><a href="mailto:tascoli@seas.upenn.edu">Tomas Ascoli</a></li>
                 </ul>
             </div>
             <div class="repo-link">
