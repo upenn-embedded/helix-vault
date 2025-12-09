@@ -1,5 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gnHZBlmB)
-
 # **Helix Vault**
 
 ### *Embedded Systems Final Project — ESE 5190 (Fall 2025)*
@@ -14,11 +12,6 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 # ## **Demo Video**
 
-<iframe src="https://drive.google.com/file/d/1yrrJclSwQNpPtwRqeH9M1_K7XSpKtqIG/preview"
-width="720" height="480" allow="autoplay"></iframe>
-
-If the video does not load, click here:
-
 **[https://youtu.be/f8Z03Lm1yS4](https://youtu.be/f8Z03Lm1yS4)**
 
 ---
@@ -27,7 +20,6 @@ If the video does not load, click here:
 
 ![Fingerprint Stage Unlocked](images/after_fingerprint.jpg)
 ![Fully Unlocked Safe](images/unlocked.jpg)
-![Circuit Diagram</span><span></code>](images/circuit_diagram.png)
 ![Electronics](images/circuit_wiring.png)
 
 ### **Prototype Images**
@@ -55,7 +47,8 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 ## **System Block Diagram**
 
-![Block Diagram](images/block_diagram.png)
+![System Block Diagram](images/block_diagram.png)
+![System Circuit Diagram](images/circuit_diagram.png)
 
 ---
 
@@ -181,12 +174,12 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 **Team 16 — Byte This**
 
-* Jeevan Karandikar — [jeev@seas.upenn.edu]()
-* Yongwoo Park — [yongwoo@seas.upenn.edu]()
-* Tomas Ascoli — [tascoli@seas.upenn.edu]()
+* Jeevan Karandikar — jeev@seas.upenn.edu
+* Yongwoo Park — yongwoo@seas.upenn.edu
+* Tomas Ascoli — tascoli@seas.upenn.edu
 
 ---
 
 ### **Repository Links**
 
-* **GitHub Repo:** [https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this](https://github.com/upenn-embedded/final-project-website-submission-f25-t16-f25-byte-this)
+* **GitHub Repo:** [https://github.com/upenn-embedded/helix-vault](https://github.com/upenn-embedded/helix-vault)

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Helix Vault - A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification. Embedded Systems Final Project — ESE 5190 (Fall 2025)">
+    <title>Helix Vault | Byte This - ESE 5190 Final Project</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Helix Vault</h1>
+            <p class="subtitle">Embedded Systems Final Project — ESE 5190 (Fall 2025)</p>
+            <div class="team-info">
+                <strong>Team:</strong> Byte This (Team 16)<br>
+                <strong>Members:</strong> Yongwoo Park · Jeevan Karandikar · Tomas Ascoli
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <img src="images/after_fingerprint.jpg" alt="Helix Vault - Fingerprint Stage" class="hero-image">
+                <p class="intro-text">
+                    A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification. 
+                    Powered by two ATmega328PB microcontrollers and an ESP32 fingerprint module, Helix Vault blends embedded security logic, 
+                    mechanical actuation, and a guided LCD user interface.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Demo Video</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/f8Z03Lm1yS4" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Final Product Images</h2>
+                
+                <h3>Device Overview</h3>
+                <div class="img-grid">
+                    <div class="img-grid-item" onclick="openModal('images/after_fingerprint.jpg', 'Fingerprint Stage')">
+                        <img src="images/after_fingerprint.jpg" alt="Fingerprint Stage" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/unlocked.jpg', 'Fully Unlocked Safe')">
+                        <img src="images/unlocked.jpg" alt="Fully Unlocked Safe" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/circuit_wiring.png', 'Circuit Wiring')">
+                        <img src="images/circuit_wiring.png" alt="Circuit Wiring" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/breadboard.png', 'Breadboard')">
+                        <img src="images/breadboard.png" alt="Breadboard" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/fully_locked.jpg', 'Fully Locked')">
+                        <img src="images/fully_locked.jpg" alt="Fully Locked" loading="lazy">
+                    </div>
+                </div>
+
+                <h3>Prototype & Sketches</h3>
+                <div class="img-grid">
+                    <div class="img-grid-item" onclick="openModal('images/LCD_password.jpg', 'LCD Breadboarding')">
+                        <img src="images/LCD_password.jpg" alt="LCD Breadboarding" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/FrontPanelSketch.png', 'Front Panel Sketch')">
+                        <img src="images/FrontPanelSketch.png" alt="Front Panel Sketch" loading="lazy">
+                    </div>
+                    <div class="img-grid-item" onclick="openModal('images/TopPanelSketch.png', 'Top Panel Sketch')">
+                        <img src="images/TopPanelSketch.png" alt="Top Panel Sketch" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>System Overview</h2>
+                <p style="font-size: 1rem; margin-bottom: 30px; color: var(--text-secondary); font-weight: 300;">
+                    Helix Vault uses a sequential three layer unlock flow:
+                </p>
+                <ol style="font-size: 1rem; max-width: 700px; margin: 20px auto; font-weight: 300;">
+                    <li><strong>Fingerprint verification</strong> (ESP32 + R503 sensor)</li>
+                    <li><strong>Analog combination</strong> using potentiometers + switches (ADC readings)</li>
+                    <li><strong>PIN entry</strong> using a matrix keypad</li>
+                </ol>
+                <p style="margin-top: 30px; color: var(--text-secondary); font-weight: 300;">
+                    A DC motor opens the sliding door after fingerprint recognition, revealing the analog combination and keypad stage.
+                </p>
+                <div class="block-diagram" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <div style="text-align: center;">
+                        <img src="images/block_diagram.png" alt="System Block Diagram" onclick="openModal('images/block_diagram.png', 'System Block Diagram')" style="cursor: pointer; max-width: 100%;">
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="images/circuit_diagram.png" alt="System Circuit Diagram" onclick="openModal('images/circuit_diagram.png', 'System Circuit Diagram')" style="cursor: pointer; max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Software Requirements Specification (SRS)</h2>
+                
+                <div class="definitions">
+                    <h3>Definitions</h3>
+                    <dl>
+                        <dt>MCU</dt>
+                        <dd>Microcontroller Unit</dd>
+                        <dt>LCD</dt>
+                        <dd>Liquid Crystal Display</dd>
+                        <dt>ADC</dt>
+                        <dd>Analog-to-digital converter</dd>
+                        <dt>PIN</dt>
+                        <dd>Personal Identification Number</dd>
+                        <dt>Unlock Sequence</dt>
+                        <dd>Fingerprint → Combination → PIN</dd>
+                    </dl>
+                </div>
+
+                <div class="requirements">
+                    <h3>SRS-01 — Low Power Management</h3>
+                    <p>Not implemented, but system restart never compromises security.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>SRS-02 — Correct Password Recognition</h3>
+                    <p>100% success across all tests — no incorrect fingerprint, combination, or PIN ever bypassed the system.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>SRS-03 — Servo + Motor Control</h3>
+                    <p>DC motor opens sliding door only after valid fingerprint. Servo latch opens only after valid PIN. Fully validated.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>SRS-04 — System Lockdown</h3>
+                    <p>Implemented manual lockdown ("*" key).</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>SRS-05 — Storage Management</h3>
+                    <p>Credential modification handled via serial interface.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Hardware Requirements Specification (HRS)</h2>
+                
+                <div class="requirements">
+                    <h3>HRS-01 — Microcontroller</h3>
+                    <p>Met.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>HRS-02 — Biometric Lock (Fingerprint)</h3>
+                    <p>Met.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>HRS-03 — Biometric Lock (Facial Recognition)</h3>
+                    <p>Not met (hardware not delivered).</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>HRS-04 — Keypad</h3>
+                    <p>4-digit PIN keypad implemented.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>HRS-05 — Servo / Motor Control</h3>
+                    <p>Latch = servo. Sliding door = DC motor.</p>
+                </div>
+
+                <div class="requirements">
+                    <h3>HRS-06 — Relay</h3>
+                    <p>Removed — not required.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>Conclusion</h2>
+                
+                <div class="conclusion-grid">
+                    <div class="conclusion-card">
+                        <h4>What Went Well</h4>
+                        <ul>
+                            <li>Multi-MCU GPIO communication</li>
+                            <li>LCD-guided UI</li>
+                            <li>Consistent fingerprint performance</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <h4>Lessons Learned</h4>
+                        <ul>
+                            <li>UART debugging requires careful electrical design</li>
+                            <li>Mechanical torque can bottleneck software progress</li>
+                            <li>Modular firmware architecture accelerates integration</li>
+                        </ul>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <h4>Next Steps</h4>
+                        <ul>
+                            <li>Add facial or iris recognition</li>
+                            <li>Custom PCB for compact assembly</li>
+                            <li>Add override key</li>
+                            <li>Logging + timestamped unlock events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <h2>References</h2>
+                <ul style="font-size: 1rem; font-weight: 300;">
+                    <li>
+                        <a href="https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library" target="_blank">
+                            R503 Fingerprint Library
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modalImage" src="" alt="">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="team-section">
+                <h2>Team Information</h2>
+                <ul class="team-list">
+                    <li><strong>Team 16 — Byte This</strong></li>
+                    <li>Jeevan Karandikar</li>
+                    <li>Yongwoo Park</li>
+                    <li>Tomas Ascoli</li>
+                </ul>
+            </div>
+            <div class="repo-link">
+                <h2>Repository</h2>
+                <p>
+                    <a href="https://github.com/upenn-embedded/helix-vault" target="_blank">
+                        GitHub Repository
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function openModal(imageSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            
+            modal.classList.add('active');
+            modalImg.src = imageSrc;
+            modalCaption.textContent = caption;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

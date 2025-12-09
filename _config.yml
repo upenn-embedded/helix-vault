@@ -1,0 +1,15 @@
+# GitHub Pages Configuration
+theme: jekyll-theme-minimal
+plugins:
+  - jekyll-feed
+
+# Site settings
+title: "Helix Vault"
+description: "A three layer secure safe integrating biometric authentication, analog combination input, and PIN verification"
+url: "https://upenn-embedded.github.io"
+baseurl: "/helix-vault"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
