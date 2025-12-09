@@ -10,13 +10,13 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 ---
 
-# ## **Demo Video**
+# **Demo Video**
 
 **[https://youtu.be/f8Z03Lm1yS4](https://youtu.be/f8Z03Lm1yS4)**
 
 ---
 
-# ## **Final Product Images**
+# **Final Product Images**
 
 ### **Device Overview**
 
@@ -34,7 +34,7 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 ---
 
-# # **System Overview**
+# **System Overview**
 
 Helix Vault uses a three stage unlock sequence:
 
@@ -100,7 +100,7 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 ---
 
-# # **Hardware Requirements Specification (HRS)**
+# **Hardware Requirements Specification (HRS)**
 
 ### **Definitions**
 
