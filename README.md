@@ -67,15 +67,15 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 #### **SRS-01 - Low Power Management - when the system is not being used, it should be in low power mode. If the battery dies, it can be recharged without unlocking or compromising the safe.**
 
-Result: We did not incorporate a low power feature when the system is not being used. However, we did make sure that powering up the system does not compromise any of the safety features of the box. When the box is powered up it makes sure all the locks or closed. However, it is important that if the user is going to power it off (disconnect it from the wall), they make sure the latch is engaged and the box is closed. The box doesn't lock itself when disconnected, but it does have an easy lock feature - when the box is open and the user presses "*" on the keypad, the box locks and goes back to fingerprint sensing (first security layer). Additionally, if the box is powered off at any point during the unlocking process, it will reset and go back to the first security layer.
+Result: We did not add a low-power mode, but powering up the system never compromises safety—on startup, it always verifies that all locks are closed. If the box is powered off, it does not lock itself, so users should ensure it is closed and latched before disconnecting power. The box can also be easily locked by pressing “*”, and any power loss during unlocking resets it to the first security layer.
 
 #### **SRS-02 - Correct Password Recognition - the safe only opens when the correct password is typed into the system.**
 
-Result: Requirement fully met. The first security layer can only be bypassed by the fingerprint reading one of the saved fingerprints (we tested with different people and fingers and the fingerprint sensor + software never failed). Each saved fingerprint is linked to its own combination + PIN, which is all handled and successfully tested by our software. The system will not read anything inputed into the keypad if the second layer of security (analog combination) hasn't been bypassed. Only the PIN that corresponds to the user's fingerprint will open the box. Any PINS longer than 4 digits are ignored and shorter/incorrect PINS do not open the box under any circumstance.
+Result: Requirement fully met. The fingerprint sensor reliably accepts only saved fingerprints, each linked to a unique combination and PIN. The keypad is disabled until the analog combination is correctly entered, and only the exact 4-digit PIN associated with the authenticated fingerprint will open the box.
 
 #### **SRS-03 - Servo Control - the 1st servo only opens the door when both the facial recognition and fingerprint scans have been successful and closes it when the user closes the box and presses the close button.**
 
-Result: We changed this requirement to servo + motor control, since the first door is opened using a DC motor and the latch is opened using a servo. The first door only opens when one of the saved fingerprints is read, any other fingerprint does not open the door - this was thoroughly tested with 10+ incorrect fingers and a 100% success rate (success = door did not open). The analog combination + PIN panel cannot be accessed if the first door doesn't open, so there is no way to actuate the servo without getting a successful fingerprint reading first. The servo only actuates when the correct PIN is typed in (10+ incorrect PINs tested with 100% success rate). The security levels have to be bypassed sequentially (software architecture), so there is no way to actuate the servo with the correct PIN without the correct fingerprint and combination (correct PIN also depends on the fingerprint reading).
+Result: We updated this requirement to servo + DC motor control. The DC motor opens the first door only after a valid fingerprint match, and extensive testing with all of our unregistered fingers and other classmates confirmed that incorrect fingerprints never trigger it. The combination and PIN panel is physically inaccessible until this door opens, and the servo latch actuates only after the correct fingerprint, correct combination, and correct PIN are entered in sequence. All incorrect fingerprints and PINs tested showed a 100% success rate in blocking access.
 
 #### **SRS-04 - System Lockdown - the system locks down for 5 minutes if the user types in the incorrect password 3 times in a row.**
 
@@ -89,7 +89,7 @@ Result: We modified this requirement, instead of having a built in interface tha
 
 # # **Hardware Requirements Specification (HRS)**
 
-### **4.1 Definitions**
+### **Definitions**
 
 * **DC Motor** : Linear actuator for sliding door
 * **Servo** : Rotary actuator for latch
@@ -98,15 +98,13 @@ Result: We modified this requirement, instead of having a built in interface tha
 
 ---
 
-### **4.2 Functional Requirements**
-
 #### **HRS-01 — HRS-01 - Microcontroller - the overall system control will be provided by the ATmega328PB.**
 
-Result: No changes
+Result: No changes. Requirement fulfilled.
 
 #### **HRS-02 - Biometric Lock 1 - our first biometric lock will be a fingerprint scanner. The fingerprint scanner should be able to scan and recognize our (Yongwoo, Jeevan, and Tomas) fingerprints, and differentiate between them.**
 
-Result: success
+Result: No changes. Requirement fulfilled.
 
 #### **HRS-03 - Biometric Lock 2 - our second biometric scanner will be a facial recognition camera. This camera should be able to scan and recognize our faces, and differentiate between them.**
 
@@ -114,33 +112,43 @@ Result: Unfortunately due to shipping issues we never received the facial recogn
 
 #### **HRS-04 - Keypad - our last lock will be a keypad, where the user has to type an X-digit password to open the box. It will have two LEDs: a red LED that turns on when the keypad is on but the box is closed, a green LED that turns on when the correct password is typed in.**
 
-Results: 4 digit keypad works. did away with the LEDs, use LCD instead for progress
+Results: The keypad is used to enter a 4 digit keypad works. Instead of LEDs, an LCD screen was used instead for prompting the user and showing progress.
 
 #### **HRS-05 - Servo - we will use a servo to open the door that allows the user to use the knobs and keypad. This door will only open if the facial recognition and fingerprint recognize the user.**
 
-Result: changed this to a DC motor driving a belt for linear actuation
+Result: The door revealing the knobs and keypad is actuated by a DC motor actuating a linear slider instead of a servo. This door only opens once the fingerprint is verified
 
-#### **HRS-06 - Relay - if we decide to use a relay to turn on the keypad only when the correct combination of switches and knobs is inputted.**
+#### **HRS-06 - Relay - Turn on the keypad only when the correct combination of switches and knobs is inputted.**
 
-Result: keypad ended up not needing power, just GPIO scanning
+Result: The keypad does not need a separate power source - instead GPIO pins are used to scan for keypad inputs. They GPIOs do not scan the keypad unless the correct switch and knob combination is detected.
 
 ---
 
 ## **Conclusion**
 
-Helix Vault brought together firmware design, inter-MCU communication, mechanical actuation, and user interface development into a cohesive embedded system. Several key lessons emerged:
+Helix Vault brought together firmware design, inter-MCU communication, mechanical actuation, and user interface development into a cohesive embedded system.
 
 ### **What went well**
 
 * Reliable multi-MCU communication using simple GPIO encoding
 * Smooth integration of actuators with LCD-guided user experience
-* Robust fingerprint performance after resolving level shifting issues
+* Robust fingerprint performance
+* Effective power management with simple 12V power supply to power all circuitry
+* Mechanical design and hardware installation was seamless
+* Efficiently split up tasks to create hardware and software parts that could come together for the final product
 
 ### **Lessons learned**
 
 * Designing modular firmware significantly simplifies integration
 * UART debugging with mis-matched voltage domains requires careful inspection
 * Mechanical choices (servo torque, motor force) matter as much as code
+
+### **Proudest Accomplishments**
+
+* Homemade Multi MCU communication was seamless and effective
+* No broken/fried electronic components
+* Extremely smooth operation and unlock process
+* Final result looks very close to a final prototype
 
 ### **Approach changes**
 
@@ -151,15 +159,22 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 ### **Obstacles**
 
 * Laser cutter downtime
-* Level-shifter noise corrupting sensor data
 * Hardware shipping delays
+* Limited budget ($150 total)
+* Low torque DC motor actuating sliding door
+* Couldn't get a bare-metal C UART driver working with the
 
 ### **Next steps**
 
-* Add facial recognition or iris scanner
+* Add facial recognition
+* Add increased security layers
+  * Biometric, for example iris scanner
+  * More unique combination lock inputs
 * Create a custom PCB to shrink the electronics footprint
 * Secure override key for power failures
-* Implement onboard user management and logs with timestamps or images
+* Implement onboard user management
+* Unlock attempt history
+  * With facial recognition camera pictures can be taken of the user/intruder
 
 ---
 
@@ -167,6 +182,12 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 * R503 Fingerprint Sensor Library: [https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library](https://github.com/mpagnoulle/R503-Fingerprint-Sensor-Library)
   * Used on ESP32
+
+---
+
+### **Repository Links**
+
+* **GitHub Repo:** [https://github.com/upenn-embedded/helix-vault](https://github.com/upenn-embedded/helix-vault)
 
 ---
 
@@ -178,8 +199,4 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 * Yongwoo Park — yongwoo@seas.upenn.edu
 * Tomas Ascoli — tascoli@seas.upenn.edu
 
----
-
-### **Repository Links**
-
-* **GitHub Repo:** [https://github.com/upenn-embedded/helix-vault](https://github.com/upenn-embedded/helix-vault)
+![Team Picture](images/team_pic.png)
