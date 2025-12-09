@@ -8,6 +8,8 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 **Members:** Yongwoo Park, Jeevan Karandikar, Tomas Ascoli
 
+**Website Link:** [https://upenn-embedded.github.io/helix-vault/](https://upenn-embedded.github.io/helix-vault/)
+
 ---
 
 # **Demo Video**
