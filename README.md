@@ -18,11 +18,14 @@ A three layer secure safe integrating biometric authentication, analog combinati
 
 # ## **Final Product Images**
 
+### **Device Overview**
+
 ![Fingerprint Stage Unlocked](images/after_fingerprint.jpg)
 ![Fully Unlocked Safe](images/unlocked.jpg)
 ![Electronics](images/circuit_wiring.png)
+![Fully Locked](images/fully_locked.jpg)
 
-### **Prototype Images**
+### **Prototype & Sketches**
 
 ![Breadboarded Electronics](images/breadboard.png)
 ![LCD Breadboarding](images/LCD_password.jpg)
@@ -65,25 +68,35 @@ A DC motor opens the internal sliding door immediately after the fingerprint sta
 
 ---
 
-#### **SRS-01 - Low Power Management - when the system is not being used, it should be in low power mode. If the battery dies, it can be recharged without unlocking or compromising the safe.**
+#### **SRS-01 - Low Power Management**
 
-Result: We did not add a low-power mode, but powering up the system never compromises safety—on startup, it always verifies that all locks are closed. If the box is powered off, it does not lock itself, so users should ensure it is closed and latched before disconnecting power. The box can also be easily locked by pressing “*”, and any power loss during unlocking resets it to the first security layer.
+**Requirement:** The system shall enter low power mode when idle for more than 5 minutes. If the battery dies, the system shall be rechargeable without unlocking or compromising the safe.
 
-#### **SRS-02 - Correct Password Recognition - the safe only opens when the correct password is typed into the system.**
+**Result:** We did not add a low-power mode, but powering up the system never compromises safety—on startup, it always verifies that all locks are closed. If the box is powered off, it does not lock itself, so users should ensure it is closed and latched before disconnecting power. The box can also be easily locked by pressing "*", and any power loss during unlocking resets it to the first security layer.
 
-Result: Requirement fully met. The fingerprint sensor reliably accepts only saved fingerprints, each linked to a unique combination and PIN. The keypad is disabled until the analog combination is correctly entered, and only the exact 4-digit PIN associated with the authenticated fingerprint will open the box.
+#### **SRS-02 - Correct Password Recognition**
 
-#### **SRS-03 - Servo Control - the 1st servo only opens the door when both the facial recognition and fingerprint scans have been successful and closes it when the user closes the box and presses the close button.**
+**Requirement:** The safe shall only open when all three security layers are successfully completed in sequence: (1) a registered fingerprint is recognized, (2) the correct analog combination (potentiometer positions and switch states) is entered, and (3) the correct 4-digit PIN associated with the recognized fingerprint is entered. The system shall reject any incorrect input at any stage and shall not proceed to subsequent stages.
 
-Result: We updated this requirement to servo + DC motor control. The DC motor opens the first door only after a valid fingerprint match, and extensive testing with all of our unregistered fingers and other classmates confirmed that incorrect fingerprints never trigger it. The combination and PIN panel is physically inaccessible until this door opens, and the servo latch actuates only after the correct fingerprint, correct combination, and correct PIN are entered in sequence. All incorrect fingerprints and PINs tested showed a 100% success rate in blocking access.
+**Result:** Requirement fully met. The fingerprint sensor reliably accepts only saved fingerprints, each linked to a unique combination and PIN. The keypad is disabled until the analog combination is correctly entered, and only the exact 4-digit PIN associated with the authenticated fingerprint will open the box.
 
-#### **SRS-04 - System Lockdown - the system locks down for 5 minutes if the user types in the incorrect password 3 times in a row.**
+#### **SRS-03 - Servo + Motor Control**
 
-Result: The system does not lock down after 3 incorrect tries, but does lock down if the user "tells" it to lock down.
+**Requirement:** The DC motor shall open the sliding door only when a registered fingerprint is successfully recognized. The servo shall actuate the latch only after all three security layers (fingerprint, analog combination, and PIN) are successfully completed in sequence. The door shall close when the user presses the "*" key on the keypad.
 
-#### **SRS-05 - Storage Management - there is an interface for creating new passwords and deleting old ones. The system will reject an attempt to add a new password when storage is full.**
+**Result:** We updated this requirement to servo + DC motor control. The DC motor opens the first door only after a valid fingerprint match, and extensive testing with all of our unregistered fingers and other classmates confirmed that incorrect fingerprints never trigger it. The combination and PIN panel is physically inaccessible until this door opens, and the servo latch actuates only after the correct fingerprint, correct combination, and correct PIN are entered in sequence. All incorrect fingerprints and PINs tested showed a 100% success rate in blocking access.
 
-Result: We modified this requirement, instead of having a built in interface that allows the user to change passwords and add fingerprints, this can be done using a computer and connecting to the ATMega's when the box is open and the lid protecting the electronics is taken off.
+#### **SRS-04 - System Lockdown**
+
+**Requirement:** The system shall lock down for 5 minutes if the user types in an incorrect PIN 3 times in a row during a single unlock attempt session.
+
+**Result:** The system does not lock down after 3 incorrect tries, but does lock down if the user manually triggers it by pressing "*" on the keypad when the box is open.
+
+#### **SRS-05 - Storage Management**
+
+**Requirement:** There shall be an interface for creating new passwords and deleting old ones. The system shall support storage for at least 3 user profiles, each with a unique fingerprint, analog combination, and PIN. The system shall reject an attempt to add a new password when storage capacity (3 profiles) is reached.
+
+**Result:** We modified this requirement, instead of having a built in interface that allows the user to change passwords and add fingerprints, this can be done using a computer and connecting to the ATMega's when the box is open and the lid protecting the electronics is taken off.
 
 ---
 
@@ -98,29 +111,41 @@ Result: We modified this requirement, instead of having a built in interface tha
 
 ---
 
-#### **HRS-01 — HRS-01 - Microcontroller - the overall system control will be provided by the ATmega328PB.**
+#### **HRS-01 - Microcontroller**
 
-Result: No changes. Requirement fulfilled.
+**Requirement:** The overall system control shall be provided by at least one ATmega328PB microcontroller.
 
-#### **HRS-02 - Biometric Lock 1 - our first biometric lock will be a fingerprint scanner. The fingerprint scanner should be able to scan and recognize our (Yongwoo, Jeevan, and Tomas) fingerprints, and differentiate between them.**
+**Result:** Requirement fulfilled. The system uses two ATmega328PB microcontrollers for system control.
 
-Result: No changes. Requirement fulfilled.
+#### **HRS-02 - Biometric Lock 1**
 
-#### **HRS-03 - Biometric Lock 2 - our second biometric scanner will be a facial recognition camera. This camera should be able to scan and recognize our faces, and differentiate between them.**
+**Requirement:** A fingerprint scanner (R503 module) shall be used as the first biometric lock. The fingerprint scanner shall be able to scan and recognize fingerprints from at least 3 different users (Yongwoo, Jeevan, and Tomas), and shall differentiate between them with at least 95% accuracy.
 
-Result: Unfortunately due to shipping issues we never received the facial recognition module.
+**Result:** Requirement fulfilled. The fingerprint scanner successfully scans and recognizes fingerprints from all three team members and differentiates between them with 100% accuracy in testing.
 
-#### **HRS-04 - Keypad - our last lock will be a keypad, where the user has to type an X-digit password to open the box. It will have two LEDs: a red LED that turns on when the keypad is on but the box is closed, a green LED that turns on when the correct password is typed in.**
+#### **HRS-03 - Biometric Lock 2**
 
-Results: The keypad is used to enter a 4 digit keypad works. Instead of LEDs, an LCD screen was used instead for prompting the user and showing progress.
+**Requirement:** A facial recognition camera shall be used as the second biometric scanner. This camera shall be able to scan and recognize faces, and shall differentiate between them with at least 90% accuracy.
 
-#### **HRS-05 - Servo - we will use a servo to open the door that allows the user to use the knobs and keypad. This door will only open if the facial recognition and fingerprint recognize the user.**
+**Result:** Unfortunately due to shipping issues we never received the facial recognition module. Requirement not met.
 
-Result: The door revealing the knobs and keypad is actuated by a DC motor actuating a linear slider instead of a servo. This door only opens once the fingerprint is verified
+#### **HRS-04 - Keypad**
 
-#### **HRS-06 - Relay - Turn on the keypad only when the correct combination of switches and knobs is inputted.**
+**Requirement:** A matrix keypad shall be used as the last lock, where the user has to type a 4-digit PIN to open the box. The keypad shall have visual feedback: a red LED that turns on when the keypad is active but the box is closed, and a green LED that turns on when the correct password is typed in.
 
-Result: The keypad does not need a separate power source - instead GPIO pins are used to scan for keypad inputs. They GPIOs do not scan the keypad unless the correct switch and knob combination is detected.
+**Result:** The keypad is used to enter a 4-digit PIN. Instead of LEDs, an LCD screen was used instead for prompting the user and showing progress, providing better visual feedback.
+
+#### **HRS-05 - Servo**
+
+**Requirement:** A servo motor shall be used to open the door that allows the user to access the knobs and keypad. This door shall only open if a registered fingerprint is successfully recognized. The servo shall have a torque of at least 2.5 kg-cm to reliably open the door mechanism.
+
+**Result:** The door revealing the knobs and keypad is actuated by a DC motor driving a linear slider instead of a servo. This door only opens once the fingerprint is verified. The DC motor provides sufficient force to reliably open the sliding door mechanism.
+
+#### **HRS-06 - Relay**
+
+**Requirement:** A relay shall be used to turn on the keypad power only when the correct combination of switches and knobs is inputted.
+
+**Result:** The keypad does not need a separate power source - instead GPIO pins are used to scan for keypad inputs. The GPIOs do not scan the keypad unless the correct switch and knob combination is detected, achieving the same functional requirement without a relay.
 
 ---
 
@@ -195,8 +220,8 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 
 **Team 16 — Byte This**
 
-* Jeevan Karandikar — jeev@seas.upenn.edu
-* Yongwoo Park — yongwoo@seas.upenn.edu
-* Tomas Ascoli — tascoli@seas.upenn.edu
+* [Jeevan Karandikar](mailto:jeev@seas.upenn.edu) — jeev@seas.upenn.edu
+* [Yongwoo Park](mailto:yongwoo@seas.upenn.edu) — yongwoo@seas.upenn.edu
+* [Tomas Ascoli](mailto:tascoli@seas.upenn.edu) — tascoli@seas.upenn.edu
 
 ![Team Picture](images/team_pic.png)
