@@ -162,7 +162,7 @@ Helix Vault brought together firmware design, inter-MCU communication, mechanica
 * Hardware shipping delays
 * Limited budget ($150 total)
 * Low torque DC motor actuating sliding door
-* Couldn't get a bare-metal C UART driver working with the
+* Couldn't get a bare-metal C UART driver working with the fingerprint sensor
 
 ### **Next steps**
 
